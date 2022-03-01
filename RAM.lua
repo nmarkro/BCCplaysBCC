@@ -90,28 +90,28 @@ function ram.did_left_win()
 end 
 
 function ram.write_string(address, s, terminate, maxlen)
-	local i = 1
-	while (i <= s:len() and i <= maxlen) do
-		local found = false
-		for key in pairs(data.tbl) do
-			if not found then
-				if s:sub(i, i + key:len() - 1) == key then
-					memory.write_u16_le(address, data.tbl[key])
-					address = address + 2
-					i = i + key:len()
-					found = true
-				end
-			end
-		end
-		if not found then
-			return false
-		end
-	end
-	if terminate then
-		memory.write_u16_le(address, 0x8000)
-		address = address + 2
-	end
-	return true
+    local i = 1
+    while (i <= s:len() and i <= maxlen) do
+        local found = false
+        for key in pairs(data.tbl) do
+            if not found then
+                if s:sub(i, i + key:len() - 1) == key then
+                    memory.write_u16_le(address, data.tbl[key])
+                    address = address + 2
+                    i = i + key:len()
+                    found = true
+                end
+            end
+        end
+        if not found then
+            return false
+        end
+    end
+    if terminate then
+        memory.write_u16_le(address, 0x8000)
+        address = address + 2
+    end
+    return true
 end
 
 function ram.get_navi_registration_address(navi_index)
@@ -153,7 +153,7 @@ function ram.write_right_name(name, navi_chip)
 end
 
 function ram.write_navis(tournament)
-	-- write decks starting at slot #1
+    -- write decks starting at slot #1
     for i = 1, #tournament do
         local navi_addr = ram.get_navi_registration_address(i)
         local player = tournament[i]
@@ -163,15 +163,15 @@ function ram.write_navis(tournament)
 end
 
 function ram.write_navi_registration(address, player)
-    memory.writebyte(address + 0x00, player.navi[0])	            -- Operator
-    memory.writebyte(address + 0x01, player.navi[1])	            -- Base Navi
-    for j = 1, 12 do										        -- Chips
+    memory.writebyte(address + 0x00, player.navi[0])                -- Operator
+    memory.writebyte(address + 0x01, player.navi[1])                -- Base Navi
+    for j = 1, 12 do                                                -- Chips
         memory.writebyte(address + 0x01 + j, player.navi[j])
     end
     ram.write_string(address + 0x0E,  player.deck.name, true, 4)
-    memory.writebyte(address + 0x17, 0x80)     		                -- ???
-    memory.writebyte(address + 0x18, player.navi[13])	            -- Code type ???
-    memory.writebyte(address + 0x19, 1)				                -- Enabler ???
+    memory.writebyte(address + 0x17, 0x80)                             -- ???
+    memory.writebyte(address + 0x18, player.navi[13])                -- Code type ???
+    memory.writebyte(address + 0x19, 1)                                -- Enabler ???
 end
 
 return ram

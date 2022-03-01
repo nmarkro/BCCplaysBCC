@@ -30,7 +30,7 @@ sql_tournament_generator.new = function(db_path)
 
     function self.record_results(results)
         SQL.writecommand("UPDATE navicodes SET wins = wins + 1, totalGames = totalGames + 1 WHERE username = \"" .. results.winner.username .. "\"")
-		SQL.writecommand("UPDATE navicodes SET totalGames = totalGames + 1 WHERE username = \"" .. results.loser.username .. "\"")
+        SQL.writecommand("UPDATE navicodes SET totalGames = totalGames + 1 WHERE username = \"" .. results.loser.username .. "\"")
     end
 
     return self

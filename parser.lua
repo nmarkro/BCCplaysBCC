@@ -82,36 +82,36 @@ function parser.parse_textbox()
 end
 
 function parser.log_draws()
-	local txt = ""
-	for i = 0, 1 do
-		local line = "Player " .. (i + 1) .. " draw slots: "
-		for j = 1, 3 do
-			line = line .. memory.readbyte(0x0200B952 + (8 * i) + j) .. " "
-		end
-		txt = txt .. line .. "\n"
-	end
-	return txt
+    local txt = ""
+    for i = 0, 1 do
+        local line = "Player " .. (i + 1) .. " draw slots: "
+        for j = 1, 3 do
+            line = line .. memory.readbyte(0x0200B952 + (8 * i) + j) .. " "
+        end
+        txt = txt .. line .. "\n"
+    end
+    return txt
 end
 
 local text = ""
 local last_turn = nil
 
 function parser.run()
-	if ram.get_tournament_substate() == 0x05 then
-		local turn = memory.readbyte(0x0200B82C)
-		if turn ~= 0 and turn ~= last_turn then
-			console.log("\n" .. parser.log_draws())
-		end
-		last_turn = turn
+    if ram.get_tournament_substate() == 0x05 then
+        local turn = memory.readbyte(0x0200B82C)
+        if turn ~= 0 and turn ~= last_turn then
+            console.log("\n" .. parser.log_draws())
+        end
+        last_turn = turn
 
-		local text = parser.parse_textbox()
-		if text ~= prev_text then
-			prev_text = text
-			if text ~= "" then
-				console.log(text)
-			end 
-		end
-	end
+        local text = parser.parse_textbox()
+        if text ~= prev_text then
+            prev_text = text
+            if text ~= "" then
+                console.log(text)
+            end 
+        end
+    end
 end
 
 return parser

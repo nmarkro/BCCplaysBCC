@@ -18,7 +18,7 @@ api_tournament_generator.new = function(api_url, secret)
     -- calling "purge" would happen at the start of the stream to clear this
     local function purge()
         if check_token() ~= nil then
-	        comm.httpGet(api_url .. "Tournament/Purge?token=" .. token.access_token)
+            comm.httpGet(api_url .. "Tournament/Purge?token=" .. token.access_token)
             return true
         end
 
@@ -57,7 +57,7 @@ api_tournament_generator.new = function(api_url, secret)
 
     function self.generate(size)
         local new_tournament = {}
-	
+        
         if check_token() ~= nil then
             local response = json.decode(comm.httpGet(api_url .. 'Tournament?size=' .. size .. "&token=" .. token.access_token))
             
@@ -75,8 +75,8 @@ api_tournament_generator.new = function(api_url, secret)
     end
 
     function self.record_results(results)
-	    if check_token() ~= nil else
-	        comm.httpPost(api_url .. "Tournament/match" .. "?token=" .. token["access_token"], json.encode(results))
+        if check_token() ~= nil else
+            comm.httpPost(api_url .. "Tournament/match" .. "?token=" .. token["access_token"], json.encode(results))
             return true
         end
 
