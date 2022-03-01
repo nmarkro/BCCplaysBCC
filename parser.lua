@@ -1,7 +1,7 @@
 local parser = {}
 
-data = require("data")
-ram = require("RAM")
+local data = require("data")
+local ram = require("RAM")
 
 -- 0x0200483E text box length
 -- 0x02004840 points to text box
@@ -93,7 +93,7 @@ function parser.log_draws()
     return txt
 end
 
-local text = ""
+local prev_text = nil
 local last_turn = nil
 
 function parser.run()

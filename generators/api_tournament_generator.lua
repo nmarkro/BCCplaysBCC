@@ -14,17 +14,6 @@ api_tournament_generator.new = function(api_url, secret)
     local secret = secret
     local token = nil
 
-    -- ideally users interacting with a twitch extension during the stream would be prioritized in getting chosen for tournaments
-    -- calling "purge" would happen at the start of the stream to clear this
-    local function purge()
-        if check_token() ~= nil then
-            comm.httpGet(api_url .. "Tournament/Purge?token=" .. token.access_token)
-            return true
-        end
-
-        return false
-    end
-
     local function get_token()
         local response = json.decode(comm.httpPost(api_url .. "Token", secret))
 
@@ -50,9 +39,21 @@ api_tournament_generator.new = function(api_url, secret)
             local t = os.time(d)
             if t > token.expires_in then
                 token = get_token()
+            end
         end
 
         return token
+    end
+
+    -- ideally users interacting with a twitch extension during the stream would be prioritized in getting chosen for tournaments
+    -- calling "purge" would happen at the start of the stream to clear this
+    local function purge()
+        if check_token() ~= nil then
+            comm.httpGet(api_url .. "Tournament/Purge?token=" .. token.access_token)
+            return true
+        end
+
+        return false
     end
 
     function self.generate(size)
@@ -75,7 +76,7 @@ api_tournament_generator.new = function(api_url, secret)
     end
 
     function self.record_results(results)
-        if check_token() ~= nil else
+        if check_token() ~= nil then
             comm.httpPost(api_url .. "Tournament/match" .. "?token=" .. token["access_token"], json.encode(results))
             return true
         end

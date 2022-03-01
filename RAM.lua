@@ -1,7 +1,10 @@
 local ram = {}
-ram.addr = {}
+
+local data = require("data")
 
 -- Addresses
+ram.addr = {}
+
 ram.addr.fastforward = 0x020051A4
 ram.addr.state = 0x020070F0
 ram.addr.substate = 0x020070F1
@@ -29,8 +32,6 @@ ram.addr.right_player_mugshot = 0x0200B7B2
 ram.addr.right_player_registration_enabler = ram.addr.navi_registration_table + (0x1C * 0x7F) + 25
 
 ram.addr.winner = 0x0200B814
-
-data = require("data")
 
 function ram.is_fastforward()
     return memory.read_u8(ram.addr.fastforward)
