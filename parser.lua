@@ -109,7 +109,7 @@ function parser.run()
             prev_text = text
             if text ~= "" then
                 console.log(text)
-            end 
+            end
         end
     end
 end

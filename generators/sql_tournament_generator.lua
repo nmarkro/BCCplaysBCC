@@ -10,7 +10,7 @@ sql_tournament_generator.new = function(db_path)
 
     function self.generate()
         local query = SQL.readcommand("SELECT username, twitchName, code, codeName FROM navicodes ORDER BY RANDOM() LIMIT 16")
-        
+
         local tournament = {}
 
         for i = 0, 15 do

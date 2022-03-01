@@ -136,21 +136,21 @@ local function load_table(path)
         -- Extract key and value from line
         local key = line:match("^([0-9A-F]+)=")
         local value = line:match("^[0-9A-F]+=(.+)")
-       
+
         -- Ignore invalid lines
-        if (key ~= nil and value ~= nil) then    
+        if (key ~= nil and value ~= nil) then
             -- Reverse the byte string
             local yek = ""
             for b in key:gmatch("..") do
                 yek = b .. yek
             end
-            
+
             -- Increase max length
             local len = value:len()
             if (len > maxLen) then
                 maxLen = len
             end
-            
+
             -- Add the byte string to the table
             yek = tonumber(yek, 16)
             tbl[value] = yek

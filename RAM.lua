@@ -40,35 +40,35 @@ end
 function ram.get_state()
     return memory.read_u8(ram.addr.state)
 end
-function ram.set_state(value) 
+function ram.set_state(value)
     memory.write_u8(ram.addr.state, value)
 end
 
 function ram.get_substate()
     return memory.read_u8(ram.addr.substate)
 end
-function ram.set_substate(value) 
+function ram.set_substate(value)
     memory.write_u8(ram.addr.substate, value)
 end
 
 function ram.get_tournament_state()
     return memory.read_u8(ram.addr.tournament_state)
 end
-function ram.set_tournament_state(value) 
+function ram.set_tournament_state(value)
     memory.write_u8(ram.addr.tournament_state, value)
 end
 
 function ram.get_tournament_substate()
     return memory.read_u8(ram.addr.tournament_substate)
 end
-function ram.set_tournament_substate(value) 
+function ram.set_tournament_substate(value)
     memory.write_u8(ram.addr.tournament_substate, value)
 end
 
 function ram.get_tournament_block()
     return memory.read_u8(ram.addr.tournament_block)
 end
-function ram.set_tournament_block(value) 
+function ram.set_tournament_block(value)
     memory.write_u8(ram.addr.tournament_block, value)
 end
 
@@ -88,7 +88,7 @@ end
 
 function ram.did_left_win()
     return bit.rshift(memory.readbyte(ram.addr.winner), 4) == 1
-end 
+end
 
 function ram.write_string(address, s, terminate, maxlen)
     local i = 1
@@ -123,11 +123,11 @@ end
 function ram.write_left_name(name, navi_chip)
     local slot = 0x7E
     local base_addr = ram.get_navi_registration_address(slot)
-    -- Set name 1 to registration #126
+    -- Set left player's name to registration #126
     memory.write_u16_le(ram.addr.left_player_registration_index, 0x2000 + slot)
     -- Write registration #126 name (11 chars)
     ram.write_string(base_addr + 0x0E, name, true, 11)
-    -- Enable registration #127
+    -- Enable registration #126
     local flag = memory.readbyte(base_addr + 0x19)
     flag = bit.bor(flag, 0x40)
     memory.writebyte(base_addr + 0x19, flag)
@@ -140,7 +140,7 @@ end
 function ram.write_right_name(name, navi_chip)
     local slot = 0x7F
     local base_addr = ram.get_navi_registration_address(slot)
-    -- Set name 2 to registration #127
+    -- Set right player's name to registration #127
     memory.write_u16_le(ram.addr.right_player_registration_index, 0x2000 + slot)
     -- Write registration #127 name (11 chars)
     ram.write_string(base_addr + 0x0E, name, true, 11)

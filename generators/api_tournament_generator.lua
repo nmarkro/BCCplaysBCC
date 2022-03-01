@@ -24,7 +24,7 @@ api_tournament_generator.new = function(api_url, secret)
                 access_token = response.access_token,
                 expires_in = os.time({year=tyear, month=tmonth, day=tday, hour=thour, min=tmin, sec=tsec})
             }
-        
+
             return newToken
         end
 
@@ -58,17 +58,17 @@ api_tournament_generator.new = function(api_url, secret)
 
     function self.generate(size)
         local new_tournament = {}
-        
+
         if check_token() ~= nil then
             local response = json.decode(comm.httpGet(api_url .. 'Tournament?size=' .. size .. "&token=" .. token.access_token))
-            
+
             for i = 1, #response do
                 local entry = response[i]
                 entry.navi = utils.decode_navicode(entry.deck.name, entry.deck.code)
-                
+
                 table.insert(new_tournament, entry)
             end
-        
+
             return new_tournament
         end
 
