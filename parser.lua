@@ -97,7 +97,7 @@ local prev_text = nil
 local last_turn = nil
 
 function parser.run()
-    if ram.get_tournament_substate() == 0x05 then
+    if ram.get_state() == 0x12 then
         local turn = memory.readbyte(0x0200B82C)
         if turn ~= 0 and turn ~= last_turn then
             console.log("\n" .. parser.log_draws())
