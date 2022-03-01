@@ -169,9 +169,9 @@ function ram.write_navi_registration(address, player)
         memory.writebyte(address + 0x01 + j, player.navi[j])
     end
     ram.write_string(address + 0x0E,  player.deck.name, true, 4)
-    memory.writebyte(address + 0x17, 0x80)                             -- ???
-    memory.writebyte(address + 0x18, player.navi[13])                -- Code type ???
-    memory.writebyte(address + 0x19, 1)                                -- Enabler ???
+    memory.writebyte(address + 0x17, 0x80)                          -- ???
+    memory.writebyte(address + 0x18, player.navi[13])               -- Code type ???
+    memory.writebyte(address + 0x19, 1)                             -- Enabler ???
 end
 
 return ram

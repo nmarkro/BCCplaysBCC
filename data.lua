@@ -142,13 +142,13 @@ local function load_table(path)
             -- Reverse the byte string
             local yek = ""
             for b in key:gmatch("..") do
-            yek = b .. yek
+                yek = b .. yek
             end
             
             -- Increase max length
             local len = value:len()
             if (len > maxLen) then
-            maxLen = len
+                maxLen = len
             end
             
             -- Add the byte string to the table

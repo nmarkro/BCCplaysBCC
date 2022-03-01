@@ -112,15 +112,15 @@ while true do
 
     -- On state switch to CompanyIntro (i.e. game start)
     if(state == 0x13 and substate == 0x01) then
-        memory.write_u16_le(0x020070F8, math.random(0xFFFF)) -- reseed rng
+        memory.write_u16_le(0x020070F8, math.random(0xFFFF))    -- reseed rng
         
         -- Set current state to StateSwitch
         ram.set_state(0x13)
         -- Set target state to Tournament
         ram.set_substate(0x12)
 
-        memory.write_u32_le(0x020070B8, 0x02008790) -- pointer to deck indexes
-        memory.writebyte(0x020070BE, 0x10)             -- # of decks
+        memory.write_u32_le(0x020070B8, 0x02008790)             -- pointer to deck indexes
+        memory.writebyte(0x020070BE, 0x10)                      -- # of decks
 
         console.log("Starting tournament")
     -- tournament state
