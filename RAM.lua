@@ -124,7 +124,7 @@ function ram.write_left_name(name, navi_chip)
     local slot = 0x7E
     local base_addr = ram.get_navi_registration_address(slot)
     -- Set name 1 to registration #126
-    memory.write_u16_le(base_addr, 0x2000 + slot)
+    memory.write_u16_le(ram.addr.left_player_registration_index, 0x2000 + slot)
     -- Write registration #126 name (11 chars)
     ram.write_string(base_addr + 0x0E, name, true, 11)
     -- Enable registration #127
@@ -141,7 +141,7 @@ function ram.write_right_name(name, navi_chip)
     local slot = 0x7F
     local base_addr = ram.get_navi_registration_address(slot)
     -- Set name 2 to registration #127
-    memory.write_u16_le(base_addr, 0x2000 + slot)
+    memory.write_u16_le(ram.addr.right_player_registration_index, 0x2000 + slot)
     -- Write registration #127 name (11 chars)
     ram.write_string(base_addr + 0x0E, name, true, 11)
     -- Enable registration #127
